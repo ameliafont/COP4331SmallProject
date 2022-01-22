@@ -10,7 +10,7 @@
 	$contactEmail = $inData["contactEmail"];
 	
 	// connect to mysql
-	$conn = new mysqli(/*host*/, $userID, /*user password*/, /*database*/); // TODO: add parameters
+	$conn = new mysqli("cop4331-24.xyz", $userID, $inData["password"], "COP4331");
 
 	// check for connection error
 	if ($conn->connect_error)

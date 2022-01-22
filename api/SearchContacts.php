@@ -6,7 +6,7 @@
 	$sCount = 0;
 
 	// new conntection to mysqli class
-	$conn = new mysqli(/*host*/, $inData["userID"], /*user password*/, /*database*/); // TODO: add parameters 
+	$conn = new mysqli("cop4331-24.xyz", $inData["userID"], $inData["password"], "COP4331");
 	// check for connection error 
 	if ($conn->connect_error)
 	{
