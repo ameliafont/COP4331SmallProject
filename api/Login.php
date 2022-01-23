@@ -2,11 +2,11 @@
 
 	$inData = json_decode(file_get_contents('php://input'), true);
 	
-	$ID = 0;
+	$id = 0;
 	$firstName = "";
 	$lastName = "";
 	
-	$conn = new mysqli("cop4331-24.xyz", $inData["userID"], $inData["password"], "COP4331"); 
+	$conn = new mysqli("cop4331-24.xyz", "TheBeast", "WeLoveCOP4331", "COP4331"); 
 	
 	if( $conn->connect_error )
 	{
@@ -18,7 +18,7 @@
 		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
 		// binds the parameters to the SQL query and tells the database what the parameters are
 		// ss means the parameters data types are strings
-		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
+		$stmt->bind_param("ss", $inData["Login"], $inData["Password"]);
 		// executes the statement prepared by the prepare function 
 		$stmt->execute();
 		// Retrieves a result set from a prepared statement as a mysqli_result object
@@ -30,7 +30,7 @@
 		if( $row = $result->fetch_assoc()  )
 		{
 			// calls function further down with the info from row 
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'] );
 		}
 		// if there was nothing in the associative array then there is no record
 		else

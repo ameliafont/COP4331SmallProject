@@ -6,7 +6,7 @@
 	$sCount = 0;
 
 	// new conntection to mysqli class
-	$conn = new mysqli("cop4331-24.xyz", $inData["userID"], $inData["password"], "COP4331");
+	$conn = new mysqli("cop4331-24.xyz", "TheBeast", "WeLoveCOP4331", "COP4331");
 	// check for connection error 
 	if ($conn->connect_error)
 	{
@@ -17,7 +17,7 @@
 		// search database
 		$stmt = $conn->prepare("select Name from Contacts where Name like ? and UserID=?");
 		$nameContact = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $nameContact, $inData["userID"]);
+		$stmt->bind_param("ss", $nameContact, $inData["ID"]);
 		$stmt->execute();
 
 		$res = $stmt->get_result();

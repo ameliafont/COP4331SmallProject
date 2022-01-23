@@ -2,7 +2,7 @@
 
 	$inData = json_decode(file_get_contents('php://input'), true);
 	
-	$userID = $inData["userID"];
+	$userID = $inData["ID"];
 	// TODO: any additional variables for contact info
 	$contactFirstName = $inData["contactFirstName"];
 	$contactLastName = $inData["contactLastName"];
@@ -10,7 +10,7 @@
 	$contactEmail = $inData["contactEmail"];
 	
 	// connect to mysql
-	$conn = new mysqli("cop4331-24.xyz", $userID, $inData["password"], "COP4331");
+	$conn = new mysqli("cop4331-24.xyz", "TheBeast", "WeLoveCOP4331", "COP4331");
 
 	// check for connection error
 	if ($conn->connect_error)
