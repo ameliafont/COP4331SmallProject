@@ -6,7 +6,7 @@
 	$firstName = "";
 	$lastName = "";
 	
-	$conn = new mysqli("cop4331-24.xyz", "DatabaseUser", "DatabasePassword", "COP4331"); 
+	$conn = new mysqli("localhost", "DatabaseUser", "DatabasePassword", "COP4331"); 
 	
 	if( $conn->connect_error )
 	{
@@ -15,7 +15,7 @@
 	else
 	{
 		// prepare prepares an SQL statement for execution
-		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
+		$stmt = $conn->prepare("SELECT ID,FirstName,LastName FROM Users WHERE Login=? AND Password =?");
 		// binds the parameters to the SQL query and tells the database what the parameters are
 		// ss means the parameters data types are strings
 		$stmt->bind_param("ss", $inData["Login"], $inData["Password"]);
