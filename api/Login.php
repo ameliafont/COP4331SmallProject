@@ -5,6 +5,8 @@
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
+	$dateCreated = "";
+	$dateLastLoggedIn = "";
 	
 	$conn = new mysqli("localhost", "DatabaseUser", "DatabasePassword", "COP4331"); 
 	
@@ -15,7 +17,7 @@
 	else
 	{
 		// prepare prepares an SQL statement for execution
-		$stmt = $conn->prepare("SELECT ID,FirstName,LastName FROM Users WHERE Login=? AND Password =?");
+		$stmt = $conn->prepare("SELECT ID,FirstName,LastName,DateCreated,DateLastLoggedIn FROM Users WHERE Login=? AND Password =?");
 		// binds the parameters to the SQL query and tells the database what the parameters are
 		// ss means the parameters data types are strings
 		$stmt->bind_param("ss", $inData["Login"], $inData["Password"]);
@@ -30,7 +32,7 @@
 		if( $row = $result->fetch_assoc()  )
 		{
 			// calls function further down with the info from row 
-			returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'] );
+			returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'], $row['DateCreated'], $row['DateLastLoggedIn'] );
 		}
 		// if there was nothing in the associative array then there is no record
 		else
@@ -56,9 +58,14 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $firstName, $lastName, $id )
+	function returnWithInfo( $firstName, $lastName, $id, $dateCreated, $dateLastLoggedIn )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue = '{"id":' . $id . ',
+					  "firstName":"' . $firstName . '",
+					  "lastName":"' . $lastName . '",
+					  "dateCreated":"' . $dateCreated . '",
+					  "dateLastLoggedIn":"' . $dateLastLoggedIn . '",
+					  "error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
