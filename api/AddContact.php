@@ -2,15 +2,13 @@
 
 	$inData = json_decode(file_get_contents('php://input'), true);
 	
-	$userID = $inData["ID"];
-	// TODO: any additional variables for contact info
+	//$userID = $inData["ID"];
 	$contactFirstName = $inData["contactFirstName"];
 	$contactLastName = $inData["contactLastName"];
-	$contactPhoneNumber = $inData["contactPhoneNumber"];
 	$contactEmail = $inData["contactEmail"];
 	
 	// connect to mysql
-	$conn = new mysqli("cop4331-24.xyz", "DatabaseUser", "DatabasePassword", "COP4331");
+	$conn = new mysqli("localhost", "DatabaseUser", "DatabasePassword", "COP4331");
 
 	// check for connection error
 	if ($conn->connect_error)
@@ -20,9 +18,9 @@
 	else
 	{
 		// prepare sql statment for execution
-		$stmt = $conn->prepare("INSERT into Contacts () VALUES()"); // TODO: add parameters to parentheses
+		$stmt = $conn->prepare("INSERT into Contacts (FirstName,LastName,EMail) VALUES(?,?,?)"); 
 		// bind parameters
-		$stmt->bind_param("sssis", $userID, $contactFirstName, $contactLastName, $contactPhoneNumber, $contactEmail); // TODO: add parameters
+		$stmt->bind_param("sss", $contactFirstName, $contactLastName, $contactEmail);
 		// execute
 		$stmt->execute(); // does not take parameters
 		// close connections

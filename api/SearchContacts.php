@@ -4,9 +4,11 @@
 	// string to append search results to and counter
 	$searchRes = "";
 	$sCount = 0;
+	$nameContact = "%" . $inData["Search"] . "%";
+	$id = $inData["UserID"];
 
-	// new conntection to mysqli class
-	$conn = new mysqli("cop4331-24.xyz", "DatabaseUser", "DatabasePassword", "COP4331");
+	// new connection to mysqli class
+	$conn = new mysqli("localhost", "DatabaseUser", "DatabasePassword", "COP4331");
 	// check for connection error 
 	if ($conn->connect_error)
 	{
@@ -15,9 +17,8 @@
 	else
 	{
 		// search database
-		$stmt = $conn->prepare("select Name from Contacts where Name like ? and UserID=?");
-		$nameContact = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $nameContact, $inData["ID"]);
+		$stmt = $conn->prepare("select FirstName from Contacts where FirstName like ? and UserID=?");
+		$stmt->bind_param("ss", $nameContact, $id);
 		$stmt->execute();
 
 		$res = $stmt->get_result();
