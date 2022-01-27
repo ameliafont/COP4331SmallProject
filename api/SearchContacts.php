@@ -17,8 +17,8 @@
 	else
 	{
 		// search database
-		$stmt = $conn->prepare("select FirstName from Contacts where FirstName like ? and UserID=?");
-		$stmt->bind_param("ss", $nameContact, $id);
+		$stmt = $conn->prepare("select LastName from Contacts where LastName like ? and UserID=?");
+		$stmt->bind_param("si", $nameContact, $id);
 		$stmt->execute();
 
 		$res = $stmt->get_result();
@@ -27,11 +27,11 @@
 		{
 			if ($sCount > 0)
 			{
-				$searchRes .= ","
+				$searchRes .= ",";
 			}
 
 			$sCount++;
-			$searchRes .= '"' . $row["Name"] . '"';
+			$searchRes .= '"' . $row["LastName"] . '"';
 		}
 
 		if ($sCount == 0)
