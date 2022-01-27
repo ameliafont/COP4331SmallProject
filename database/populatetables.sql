@@ -12,3 +12,4 @@ insert into Contacts (FirstName,LastName,Email,UserID) VALUES ('J','H', 'a@h.com
 insert into Contacts (FirstName,Email,Phone,UserID) VALUES ('Sam', 'sammyT@test.com','0000000001', 1);
 insert into Contacts (FirstName,LastName,Email,Phone,UserID) VALUES ('John','Doe', 'JD00@test.com','0000000000', 2);
 insert into Contacts (FirstName,LastName,Email,UserID) VALUES ('Barry','Allen', 'def-not@theflash.com', 4);
+insert into Contacts (FirstName,LastName,UserID) VALUES ('Pete','Parker', 4);
