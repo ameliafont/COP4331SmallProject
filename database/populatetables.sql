@@ -13,3 +13,7 @@ insert into Contacts (FirstName,Email,Phone,UserID) VALUES ('Sam', 'sammyT@test.
 insert into Contacts (FirstName,LastName,Email,Phone,UserID) VALUES ('John','Doe', 'JD00@test.com','0000000000', 2);
 insert into Contacts (FirstName,LastName,Email,UserID) VALUES ('Barry','Allen', 'def-not@theflash.com', 4);
 insert into Contacts (FirstName,LastName,UserID) VALUES ('Pete','Parker', 4);
+
+/* Show tables */
+Select * from Users;
+Select * from Contacts;
