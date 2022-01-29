@@ -18,7 +18,7 @@
 	else
 	{
 		// prepare sql statment for execution
-		$stmt = $conn->prepare("INSERT into Contacts (ID,FirstName,LastName,EMail) VALUES(?,?,?,?)"); 
+		$stmt = $conn->prepare("INSERT into Contacts (UserID,FirstName,LastName,EMail) VALUES(?,?,?,?)"); 
 		// bind parameters
 		$stmt->bind_param("isss", $userID, $contactFirstName, $contactLastName, $contactEmail);
 		// execute
