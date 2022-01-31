@@ -1,5 +1,5 @@
 <?php
-
+	
 	$inData = json_decode(file_get_contents('php://input'), true);
 	
 	$userID = $inData["ID"];
@@ -8,9 +8,11 @@
 	$contactEmail = $inData["EMail"];
 	$contactPhone = $inData["Phone"];
 	
+	$newFieldData = $inData["Edit"];
+	
 	// connect to mysql
 	$conn = new mysqli("localhost", "DatabaseUser", "DatabasePassword", "COP4331");
-
+	
 	// check for connection error
 	if ($conn->connect_error)
 	{
@@ -19,15 +21,15 @@
 	else
 	{
 		// prepare sql statment for execution
-		$stmt = $conn->prepare("INSERT into Contacts (UserID,FirstName,LastName,EMail, Phone) VALUES(?,?,?,?,?)"); 
+		$stmt = $conn->prepare("UPDATE Contacts SET LastName =? WHERE UserID =? AND FirstName =? AND LastName =? AND EMail =? AND Phone =?"); 
 		// bind parameters
-		$stmt->bind_param("isssi", $userID, $contactFirstName, $contactLastName, $contactEmail, $contactPhone);
+		$stmt->bind_param("sisssi", $newFieldData, $userID, $contactFirstName, $contactLastName, $contactEmail, $contactPhone);
 		// execute
 		$stmt->execute(); // does not take parameters
 		// close connections
 		$stmt->close();
 		$conn->close();
-		returnWithError("Added");
+		returnWithError("Editted");
 	}
 	function sendResultInfoAsJson( $obj )
 	{
@@ -40,5 +42,5 @@
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
+	
 ?>
-
