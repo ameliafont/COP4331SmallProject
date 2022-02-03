@@ -2,7 +2,7 @@
 	
 	$inData = json_decode(file_get_contents('php://input'), true);
 	
-	$userID = $inData["ID"];
+	$userID = $inData["UserID"];
 	$contactFirstName = $inData["FirstName"];
 	$contactLastName = $inData["LastName"];
 	$contactEmail = $inData["EMail"];
