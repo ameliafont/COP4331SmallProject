@@ -17,8 +17,8 @@
 	else
 	{
 		// search database
-		$stmt = $conn->prepare("SELECT FirstName,LastName,EMail,Phone FROM Contacts WHERE LastName LIKE ? AND UserID =?");
-		$stmt->bind_param("si", $nameContact, $id);
+		$stmt = $conn->prepare("SELECT FirstName,LastName,EMail,Phone FROM Contacts WHERE UserID =? AND (LastName LIKE ? OR FirstName LIKE ?)");
+		$stmt->bind_param("iss", $id, $nameContact, $nameContact);
 		$stmt->execute();
 
 		$res = $stmt->get_result();
