@@ -8,6 +8,12 @@
 	$dateCreated = "";
 	$dateLastLoggedIn = "";
 	
+	$login = $inData["Login"];
+	$password = $inData["Password"];
+	
+	if ($login == "" || $password == "")
+		returnWithError("No Records Found");
+	
 	$conn = new mysqli("localhost", "DatabaseUser", "DatabasePassword", "COP4331"); 
 	
 	if( $conn->connect_error )
@@ -20,7 +26,7 @@
 		$stmt = $conn->prepare("SELECT ID,FirstName,LastName,DateCreated,DateLastLoggedIn FROM Users WHERE Login=? AND Password =?");
 		// binds the parameters to the SQL query and tells the database what the parameters are
 		// ss means the parameters data types are strings
-		$stmt->bind_param("ss", $inData["Login"], $inData["Password"]);
+		$stmt->bind_param("ss", $login, $password);
 		// executes the statement prepared by the prepare function 
 		$stmt->execute();
 		// Retrieves a result set from a prepared statement as a mysqli_result object
