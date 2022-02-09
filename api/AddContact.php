@@ -21,7 +21,7 @@
 		// prepare sql statment for execution
 		$stmt = $conn->prepare("INSERT into Contacts (UserID,FirstName,LastName,EMail, Phone) VALUES(?,?,?,?,?)"); 
 		// bind parameters
-		$stmt->bind_param("isssi", $userID, $contactFirstName, $contactLastName, $contactEmail, $contactPhone);
+		$stmt->bind_param("issss", $userID, $contactFirstName, $contactLastName, $contactEmail, $contactPhone);
 		// execute
 		$stmt->execute(); // does not take parameters
 		// close connections

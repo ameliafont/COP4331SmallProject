@@ -24,7 +24,7 @@
 		if ($fieldToChange == "FirstName")
 		{
 			$stmt = $conn->prepare("UPDATE Contacts SET FirstName =? WHERE UserID =? AND FirstName =? AND LastName =? AND EMail =? AND Phone =?"); 
-			$stmt->bind_param("sisssi", $newFieldData, $userID, $contactFirstName, $contactLastName, $contactEmail, $contactPhone);
+			$stmt->bind_param("sissss", $newFieldData, $userID, $contactFirstName, $contactLastName, $contactEmail, $contactPhone);
 		}
 		elseif ($fieldToChange == "LastName")
 		{

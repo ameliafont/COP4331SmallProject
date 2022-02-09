@@ -15,7 +15,7 @@
 	else
 	{
 		$stmt = $conn->prepare("DELETE FROM Contacts WHERE UserID =? AND FirstName =? AND LastName =? AND EMail =? AND Phone =?");
-		$stmt->bind_param("isssi", $userId, $firstName, $lastName, $email, $phone);
+		$stmt->bind_param("issss", $userId, $firstName, $lastName, $email, $phone);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();

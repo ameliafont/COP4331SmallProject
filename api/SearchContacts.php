@@ -4,7 +4,7 @@
 	// string to append search results to and counter
 	$searchRes = "";
 	$sCount = 0;
-	$nameContact = "%" . $inData["Search"] . "%";
+	$search = "%" . $inData["Search"] . "%";
 	$id = $inData["UserID"];
 
 	// new connection to mysqli class
@@ -17,8 +17,8 @@
 	else
 	{
 		// search database
-		$stmt = $conn->prepare("SELECT FirstName,LastName,EMail,Phone FROM Contacts WHERE UserID =? AND (LastName LIKE ? OR FirstName LIKE ?)");
-		$stmt->bind_param("iss", $id, $nameContact, $nameContact);
+		$stmt = $conn->prepare("SELECT FirstName,LastName,EMail,Phone FROM Contacts WHERE UserID =? AND (LastName LIKE ? OR FirstName LIKE ? OR EMail LIKE ? OR Phone LIKE ?)");
+		$stmt->bind_param("issss", $id, $search, $search, $search, $search);
 		$stmt->execute();
 
 		$res = $stmt->get_result();
