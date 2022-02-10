@@ -5,7 +5,13 @@
 	$lastName = $inData["LastName"];
 	$login = $inData["Login"];
 	$password = $inData["Password"];
-
+	
+	if(empty($inData["FirstName"]) 
+	   || empty($inData["LastName"])
+	   || empty($inData["Login"])
+	   || empty($inData["Password"])) 
+	{returnWithError("Ensure all fields are filled");}
+			 
 	$conn = new mysqli("localhost", "DatabaseUser", "DatabasePassword", "COP4331");
 	if ($conn->connect_error) 
 	{
