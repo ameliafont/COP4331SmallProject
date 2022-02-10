@@ -11,6 +11,8 @@
 	   || empty($inData["Login"])
 	   || empty($inData["Password"])) 
 	{returnWithError("Ensure all fields are filled");}
+
+	
 			 
 	$conn = new mysqli("localhost", "DatabaseUser", "DatabasePassword", "COP4331");
 	if ($conn->connect_error) 
@@ -19,6 +21,11 @@
 	} 
 	else
 	{
+		$exists = mysql_query($conn, "SELECT * FROM Users WHERE Login = '$login'"); 
+		if(mysql_num_rows($exists)>0)
+		{
+			returnWithError("Login already exists");
+		}
 		$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES(?, ?, ?, ?)");
 		$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
 		$stmt->execute();
