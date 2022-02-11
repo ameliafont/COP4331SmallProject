@@ -26,18 +26,19 @@
 			$res = $check->get_result();
 			$row = $res->fetch_assoc();
 			$check->close();
-			if($row["Login"] != "")
+			$exists = $conn->query("SELECT * FROM Users WHERE Login = '$login'");
+			if(mysqli_num_rows($exists)>0)
 			{
-				$conn->close();
 				returnWithError("Login already exists");
 			}
-			
+			else {
 			$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES(?, ?, ?, ?)");
 			$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
 			$stmt->execute();
 			$stmt->close();
 			$conn->close();
 			returnWithError("Successfully completed");
+			}
 		}
 	}
 	function getRequestInfo()
