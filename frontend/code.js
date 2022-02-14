@@ -120,43 +120,57 @@ function doRegister(){
 	let firstN = document.getElementById('newFirstName').value;
 	let lastN = document.getElementById('newLastName').value;
 
-	let tmp = {Login:login,Password:password,FirstName:firstN,LastName:lastN};
-	let jsonPayload = JSON.stringify( tmp );
-	
-	let url = urlBase + '/LAMPAPI/Register' + extension;
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if(this.status != 200 || this.readyState != 4){
-				document.getElementById('registerResult').innerHTML = "Registration Error";
-			}
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("registerResult").innerHTML = "Successfully Registered!";
-
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				userId = jsonObject.id;
-
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
-
-				saveCookie();
-	
-				window.location.href = "contacts.html";
-			}
-		};
-		xhr.send(jsonPayload);
+	if(login == '' || password == '' || firstN == '' || lastN == ''){
+		document.getElementById("registerResult").innerHTML = "One or More Fields are Empty";
+		if(firstN == ''){
+				document.getElementById("errorFirst").innerHTML = "First Name Required";
+		}
+		if(lastN == ''){
+			document.getElementById("errorLast").innerHTML = "Last Name Required";
+		}
+		if(login == ''){
+			document.getElementById("errorUser").innerHTML = "Username Required";
+		}
+		if(password == ''){
+			document.getElementById("errorPass").innerHTML = "Password Required";
+		}
 	}
-	catch(err)
-	{
-		document.getElementById("registerResult").innerHTML = err.message;
+	else{
+		let tmp = {Login:login,Password:password,FirstName:firstN,LastName:lastN};
+		let jsonPayload = JSON.stringify( tmp );
+		
+		let url = urlBase + '/LAMPAPI/Register' + extension;
+
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+		try
+		{
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					document.getElementById("registerResult").innerHTML = "Successfully Registered!";
+
+					let jsonObject = JSON.parse( xhr.responseText );
+					
+					userId = jsonObject.id;
+
+					firstName = jsonObject.FirstName;
+					lastName = jsonObject.LastName;
+
+					saveCookie();
+		
+					window.location.href = "index.html";
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("registerResult").innerHTML = err.message;
+		}
 	}
 
 }
@@ -361,4 +375,3 @@ function editContact()
     document.getElementById("contactEditResult").innerHTML = err.message;
   }
 }
-
