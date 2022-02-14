@@ -184,43 +184,48 @@ function addContact()
    	var lname = document.getElementById('contactLastName').value;
    	var email = document.getElementById('contactEmail').value;
    	var phone = document.getElementById('contactPhone').value;
-
    	document.getElementById('addContactResult').innerHTML = "";
 
-   	let tmp = {UserID:userId,FirstName:fname,LastName:lname,EMail:email,Phone:phone};
-		let jsonPayload = JSON.stringify( tmp );
+   	if(fname == '' && lname == '' && email == '' && phone == ''){
+			document.getElementById("addContactResult").innerHTML = "Please Fill One or More Fields";
+		}
+		else{
+	   	let tmp = {UserID:userId,FirstName:fname,LastName:lname,EMail:email,Phone:phone};
+			let jsonPayload = JSON.stringify( tmp );
 
-		let url = urlBase + '/LAMPAPI/AddContact' + extension;
+			let url = urlBase + '/LAMPAPI/AddContact' + extension;
 
-		let xhr = new XMLHttpRequest();
-		xhr.open("POST", url, true);
-		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-   	//var payload = '{"FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Phone" : "' + phone + '", "EMail" : "' + email + '"}';
+	   	//var payload = '{"FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Phone" : "' + phone + '", "EMail" : "' + email + '"}';
 
-   	/*var xhr = new XMLHttpRequest();
-   	xhr.open("POST", baseURL + "/LAMPAPI/CreateContact.php", true);
-   	xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");*/
+	   	/*var xhr = new XMLHttpRequest();
+	   	xhr.open("POST", baseURL + "/LAMPAPI/CreateContact.php", true);
+	   	xhr.setRequestHeader("Content-type", "application/json; charset = UTF-8");*/
 
-   	try {
-   		xhr.onreadystatechange = function(){
-   			if (xhr.readyState === 4){
+	   	
+	   	try {
+	   		xhr.onreadystatechange = function(){
+	   			if (xhr.readyState === 4){
 
 
-   				document.getElementById('addContactResult').innerHTML = "Successfully Added!";
+	   				document.getElementById('addContactResult').innerHTML = "Successfully Added!";
 
-  			 	document.getElementById('contactFirstName').value = '';
-  			 	document.getElementById('contactLastName').value = '';
-  			 	document.getElementById('contactEmail').value = '';
-  			 	document.getElementById('contactPhone').value = '';
-  				clearfields();
-   			}
-   		};
-      	xhr.send(jsonPayload);
-   	}
-   	catch(err) {
-      	document.getElementById('addContactResult').innerHTML = err.message;
-   	}
+	  			 	document.getElementById('contactFirstName').value = '';
+	  			 	document.getElementById('contactLastName').value = '';
+	  			 	document.getElementById('contactEmail').value = '';
+	  			 	document.getElementById('contactPhone').value = '';
+	  				clearfields();
+	   			}
+	   		};
+	      	xhr.send(jsonPayload);
+	   	}
+	   	catch(err) {
+	      	document.getElementById('addContactResult').innerHTML = err.message;
+	   	}
+	  }
 }
 
 function clearfields()
@@ -232,6 +237,59 @@ function clearfields()
 
 }
 
+function init()
+{
+	var srch = document.getElementById('searchText').value;
+
+	document.getElementById('contactSearchResult').innerHTML = "";
+	
+	let contactList = "";
+
+	let tmp = {UserID:userId,Search:srch};
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/LAMPAPI/SearchContacts' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactSearchResult").innerHTML = "Contacts Retrieved:";
+				let jsonObject = JSON.parse( xhr.responseText );
+				
+				for( let i=0; i<5; i++ )
+				{
+
+					if(jsonObject.results[i] != ""){
+						document.getElementById(i).innerHTML += jsonObject.results[i];
+					}
+					else{
+						document.getElementById(i).innerHTML += "Empty";
+					}
+					
+
+					if( i < jsonObject.results.length - 1 )
+					{
+						contactList += "<br />\r\n";
+					}
+				}
+				
+				document.getElementsByTagName("p")[0].innerHTML = contactList;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}
+	
+}
 
 // Function to search for a contact
 function searchContact()
