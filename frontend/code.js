@@ -6,6 +6,22 @@ var firstName = "";
 var lastName = "";
 var searchPlaceholder = "";
 
+function openAddForm() {
+  document.getElementById("addForm").style.display = "block";
+}
+function openDeleteForm() {
+  document.getElementById("deleteForm").style.display = "block";
+}
+function openEditForm() {
+  document.getElementById("editForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("addForm").style.display = "none";
+  document.getElementById("deleteForm").style.display = "none";
+  document.getElementById("editForm").style.display = "none";
+}
+
 function doLogin()
 {
 	userId = 0;
@@ -319,11 +335,20 @@ function searchContact()
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
-					contactList += jsonObject.results[i];
+					/*contactList += jsonObject.results[i];
 					if( i < jsonObject.results.length - 1 )
 					{
+						contactList += "<br /><button type="button" class="button" onclick="deleteContact();">\r\n";
+					}*/
+
+					console.log(jsonObject.results[i].firstName);
+
+					contactList += '<br />' + jsonObject.results[i];
+					
+					if(i < jsonObject.results.length - 1){
 						contactList += "<br />\r\n";
 					}
+
 				}
 				
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
@@ -378,6 +403,47 @@ function deleteContact()
       document.getElementById("contactDeleteResult").innerHTML = err.message;
     }
 }
+
+function deleteContact2(d, f, l, e, p)
+{
+		/*let dFirst = document.getElementById("deleteFirst").value;
+		let dLast = document.getElementById("deleteLast").value;
+		let dEmail = document.getElementById("deleteEmail").value;
+		let dPhone = document.getElementById("deletePhone").value;*/
+
+    document.getElementById("contactDeleteResult").innerHTML = "";
+
+    let tmp = {UserID:d,FirstName:f,LastName:l,EMail:e,Phone:p};
+		let jsonPayload = JSON.stringify( tmp );
+
+		let url = urlBase + '/LAMPAPI/Delete' + extension;
+
+		let xhr = new XMLHttpRequest();
+		xhr.open("DELETE", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+   	try
+    {
+      xhr.onreadystatechange = function()
+      {
+        if(this.readyState == 4 && this.status == 200)
+        {
+        	document.getElementById('deleteFirst').value = '';
+  			 	document.getElementById('deleteLast').value = '';
+  			 	document.getElementById('deleteEmail').value = '';
+  			 	document.getElementById('deletePhone').value = '';
+
+          document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
+        }
+      };
+      xhr.send(jsonPayload);
+    }
+    catch (err)
+    {
+      document.getElementById("contactDeleteResult").innerHTML = err.message;
+    }
+}
+
 
 // Function to edit a contact
 function editContact()
