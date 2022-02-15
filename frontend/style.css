@@ -1,7 +1,35 @@
+#contactList{
+  font-family: "Bahnschrift";
+  font-size: 20px;
+  text-align: center;
+}
+
 #inner-title{
   font-family: "Consolas";
   text-align: center;
   color: white;
+}
+
+#contact-header{
+  font-family: "Consolas";
+  text-align: center;
+  color: black;
+  font-size: 30px;
+}
+
+.logincontent {
+  font-size: 30px;
+  font-family: "Consolas";
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius:.25em;
+  box-sizing:border-box;
+  padding:10px;
+  text-align:center;
+  border: 10px solid rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 #loginDiv
@@ -49,10 +77,12 @@
 
 #loggedInDiv
 {
-    font-size: 30px;
+    font-size: 50px;
+    font-family: "Consolas";
     width: 70%;
     margin-left: 15%;
     padding: 25px;
+    text-shadow: #A0DB8E 1px 0 10px;
 }
 
 #accessUIDiv
@@ -173,11 +203,11 @@ input[type=text], input[type=password] {
 
 button {
   border-radius: 25px;
-  background-color: #04AA6D;
+  background-color: black;
   color: white;
   padding: 5px 5px;
   margin: 8px 0;
-  border: none;
+  border: 2px solid white;
   cursor: pointer;
   width: 33%;
 }
@@ -217,27 +247,10 @@ span.psw {
 }
 
 #searchText {
-  width: 100%;
-  font-size: 18px;
+  width: 50%;
+  font-size: 25px;
   padding: 11px;
-  border: 1px solid #ddd;
-}
-
-/* Style the navigation menu */
-#myMenu {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Style the navigation links */
-#myMenu li a {
-  padding: 12px;
-  text-decoration: none;
-  color: black;
-  display: block
-}
-
-#myMenu li a:hover {
-  background-color: #eee;
+  border: 2px solid black;
+  text-align: center;
+  font-family: "Consolas";
 }
